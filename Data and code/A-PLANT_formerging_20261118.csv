@@ -1,0 +1,154 @@
+"Prolific","Age","Gender","Race","Income","Education","Context","Prestorer_Order","Prestorer_Color","Maction_Order","likeplantrestorer","commuplantrestorer","trustplantrestorer","badplantharmer","Sever_Plant_harm","Sever_Pot_harm","Sever_Plant_rest","Sever_Pot_rest"
+"5ced23c585712e00190bd98a",44,1,"White",3,3,NA,"First","Blue","Restore_first","1","1","1",1,6,4,1,1
+"66d74b9d2a9bfcaf3ddbe8a3",38,2,"Hispanic or Latinx",1,2,NA,"First","Purple","Harm_first","0","0","0",0,4,4,2,1
+"6685bff319279648eb6d98b3",45,2,"Black or African American",8,5,NA,"First","Purple","Harm_first","1","1","1",1,5,5,1,1
+"66a1ffdd07822ec65455af5d",38,2,"White",2,2,NA,"Second","Purple","Harm_first","1","1","1",1,4,5,1,3
+"6639e4b63f0c828141e2ea67",21,1,"Multiracial",6,3,NA,"Second","Blue","Restore_first","1","1","1",1,5,4,1,2
+"64b6169ab8bc398c7f154685",34,1,"Multiracial",4,5,NA,"Second","Purple","Restore_first","1","1","1",1,6,5,1,1
+"5a4c1ecaefd8df0001d34305",31,1,"White",2,2,NA,"Second","Purple","Restore_first","1","1","1",1,5,4,1,1
+"65654bb65a81489784483bf0",33,2,NA,NA,NA,NA,"First","Purple","Harm_first","0","0","0",0,5,5,2,2
+"666dd667a22ddf04af6c4870",39,2,"White",3,5,NA,"Second","Purple","Restore_first","1","1","1",1,5,3,1,2
+"59f77d39b47dfc0001b660ea",35,1,"White",1,1,1,"Second","Blue","Restore_first","0","0","0",0,5,6,1,2
+"5ddd2a4459b1b0c7509c7a47",49,1,"White",2,2,3,"First","Blue","Restore_first","1","1","1",1,6,2,1,1
+"63d6873b65a6170d64a652f6",42,1,"White",6,5,1,"Second","Blue","Restore_first","1","1","1",1,4,4,2,1
+"663b84ce22190fcd27e5ae45",47,1,"White",1,2,1,"First","Purple","Restore_first","1","1","1",1,4,4,2,2
+"67534e4c17c56df833f9ba2e",27,2,"White",7,5,2,"First","Blue","Harm_first","1","1","1",1,5,3,1,3
+"677da02dc68ea2b62a30b052",23,2,"White",3,5,2,"Second","Blue","Harm_first","1","1","1",0,6,6,1,1
+"5fb8b141a2e5dd63494c80f1",36,2,"Multiracial",1,2,3,"Second","Purple","Harm_first","1","1","1",1,5,4,1,3
+"5ced8f96a726ed0015d31452",38,1,"White",7,6,3,"Second","Purple","Restore_first","1","1","1",1,5,4,1,1
+"63643728a38eaad0e7a70ee4",27,1,"White",4,6,3,"Second","Blue","Restore_first","0","1","0",0,6,3,1,2
+"5608a73fd7def20012b7389d",37,1,"White",4,5,2,"First","Blue","Harm_first","1","1","1",1,5,4,1,2
+"599de70d8a6cc5000128f980",31,2,"White",5,5,3,"First","Blue","Restore_first","0","0","0",0,3,5,1,1
+"65c39067cbd525efe109a5e4",33,2,"White",4,5,3,"Second","Purple","Harm_first","1","1","1",1,6,4,1,1
+"66f63aed90df9fde39209ed5",34,2,"White",4,5,3,"First","Purple","Restore_first","1","1","1",1,6,2,1,3
+"6117efedb574017076d5b499",32,2,"White",7,5,2,"Second","Purple","Restore_first","1","1","1",1,6,2,1,4
+"5d2fbee1fb16450018a7a023",36,1,"White",6,5,2,"Second","Blue","Harm_first","1","1","0",1,5,5,1,1
+"677180f70e024d29940222d9",39,2,"White",2,5,2,"Second","Blue","Harm_first","1","1","1",1,5,5,2,3
+"676708c900a8d4d795f34f88",32,1,"White",4,5,2,"First","Blue","Restore_first","0","0","0",0,1,5,2,2
+"677c2c3450d1c3936bc9904f",20,2,"Black or African American",2,3,2,"First","Blue","Harm_first","1","1","1",1,4,4,2,2
+"66d5c32b0af9b14781d80183",22,2,"White",2,2,2,"First","Purple","Harm_first","1","1","1",1,4,1,1,3
+"6719945077484a73423ae558",39,1,"White",6,5,1,"First","Purple","Restore_first","1","1","1",1,5,5,1,1
+"66439a95d4722ff6c42d01e6",24,1,"White",3,5,2,"First","Blue","Harm_first","1","1","1",1,6,4,1,1
+"5c8570bf6a4b9b0014c84d45",34,3,"Multiracial",3,3,3,"Second","Blue","Restore_first","0","0","0",0,5,4,1,1
+"5d951ede9b6f880018f63b6e",35,1,"White",3,2,3,"First","Purple","Restore_first","1","1","1",1,6,5,1,1
+"6405feae7d6321bfaaf793e8",35,2,"White",4,5,1,"Second","Blue","Harm_first","0","0","0",0,5,5,1,1
+"674cdf549ac42ec58c89cb40",24,1,"White",3,3,3,"First","Blue","Restore_first","1","1","1",1,6,5,1,1
+"65c7878613b84bfc354131c7",46,2,"White",6,6,3,"Second","Purple","Restore_first","1","1","1",1,5,4,2,3
+"67180b6b3d11d7eef34ca388",30,2,"Black or African American",5,6,3,"Second","Purple","Restore_first","0","0","0",0,3,3,5,2
+"65a2a60050e146d8bd321d28",37,2,"White",1,3,1,"First","Purple","Harm_first","1","1","1",1,5,4,1,1
+"67227b6a95c02df067984f28",30,2,"White",6,6,3,"First","Purple","Harm_first","0","0","0",0,3,5,1,1
+"5c2019f5cc850a0001b329e8",47,1,"White",1,3,1,"Second","Purple","Harm_first","0","0","0",0,5,4,2,2
+"67178054a368314e6afa5ed4",37,1,"White",3,3,3,"Second","Purple","Restore_first","1","1","1",1,5,4,1,2
+"66fc3036489b66477302c2e7",44,1,"White",7,5,2,"First","Blue","Harm_first","1","1","1",1,5,1,1,1
+"66b8c57c379b1653b3b0042b",35,2,"White",3,2,1,"Second","Blue","Restore_first","0","0","0",0,6,5,1,1
+"675494f15fa90a1f4533486f",49,1,"White",6,5,3,"First","Blue","Restore_first","1","1","1",1,5,4,1,1
+"671faa3a3b2bb750a1b926fa",48,2,"White",6,5,3,"Second","Purple","Harm_first","1","1","1",1,6,4,1,2
+"673b77b11f79e3de7bc5d44f",38,2,"Multiracial",2,5,1,"First","Purple","Restore_first","1","1","1",1,5,4,2,3
+"664e1a71d20f44f2ffe39360",39,1,"White",8,6,3,"Second","Purple","Restore_first","1","1","1",1,4,2,1,3
+"5f4a7a00dc1bde60ab8f7ac5",30,1,"Asian",1,5,3,"Second","Blue","Restore_first","1","1","1",1,6,6,1,2
+"678557116f825dad357b623c",34,1,"White",7,5,3,"First","Purple","Harm_first","1","1","1",1,2,2,1,1
+"6670805ba058ae6fc47f4f7b",23,1,"White",5,5,3,"Second","Purple","Harm_first","1","1","1",1,5,3,1,2
+"66dc5fbfa8ae212ff793e53f",20,1,"Black or African American",1,3,2,"Second","Purple","Restore_first","1","1","1",1,6,4,1,3
+"63d569384ae2cf6d4dce7c32",50,2,"White",2,6,2,"Second","Blue","Harm_first","1","1","1",1,4,4,2,2
+"66e0654853b87ac3b3b5662a",40,2,"White",3,3,1,"First","Blue","Harm_first","1","1","1",1,5,4,1,1
+"67713f8437575dd855393a8f",31,2,"White",3,2,1,"First","Blue","Restore_first","1","1","1",1,6,4,1,1
+"5e3079c558a8c8073fdb1ff9",36,1,"White",4,4,3,"Second","Purple","Restore_first","0","0","0",0,5,5,1,2
+"662aabe46aafa6e250421de1",40,2,"White",4,2,3,"First","Purple","Restore_first","1","1","1",1,5,4,2,2
+"5bc8897f462bdb0001a61426",42,1,"White",5,3,3,"First","Blue","Harm_first","1","1","1",1,5,2,1,2
+"6712b53345c966536d238e89",37,1,"White",4,2,3,"First","Purple","Restore_first","0","0","0",0,6,6,1,1
+"6400df45e639d203b8518cad",39,1,"Other",2,5,3,"First","Purple","Restore_first","1","1","1",1,6,5,1,1
+"67606caee59f6f7312f6277f",37,1,"White",2,5,1,"First","Purple","Harm_first","0","0","0",0,2,2,2,2
+"651c4484ba17050f6b716614",31,1,"Hispanic or Latinx",5,2,3,"Second","Blue","Restore_first","0","0","0",0,4,4,2,2
+"66d8790772c9e0e4ee96259c",44,1,"White",4,5,1,"Second","Blue","Restore_first","0","0","0",0,5,5,2,2
+"670c06bb7926d2525a7a7755",33,1,"Multiracial",4,2,1,"Second","Blue","Harm_first","0","0","0",0,5,5,2,2
+"58060d08b869700001d70b8c",36,1,"Black or African American",7,4,2,"First","Blue","Harm_first","1","1","1",1,5,4,1,2
+"666b44aa769feb3255772b4b",23,1,"Hispanic or Latinx",1,2,1,"Second","Blue","Restore_first","0","0","0",0,5,5,1,2
+"67917bf6747e6389b4743877",50,1,"White",8,3,3,"First","Blue","Restore_first","1","1","1",1,6,6,1,1
+"5dd299a27f1bbf2a83554ecf",47,2,"Asian",3,5,2,"Second","Blue","Harm_first","1","1","1",1,5,4,1,1
+"5ed9c3054268815691ed0e2c",39,1,"White",2,2,3,"First","Blue","Restore_first","1","1","1",1,5,3,1,3
+"651b1eb597d19205a5069db5",41,2,"White",3,3,3,"First","Blue","Harm_first","1","1","1",1,5,4,1,1
+"677c314658f46f3c0f19ba34",45,2,"White",7,5,3,"First","Purple","Harm_first","1","1","1",1,5,4,1,2
+"654281dc418a3f4f38c24932",29,1,"Native Hawaiian or Pacific Islander",4,5,2,"Second","Purple","Restore_first","1","1","1",1,6,5,1,1
+"66d5d10f4defd1d7b2cdd5c5",38,2,"Multiracial",5,3,3,"Second","Purple","Harm_first","1","1","1",1,4,4,1,1
+"678851f427536397f63120bf",31,2,"Multiracial",5,6,2,"First","Blue","Harm_first","1","1","1",1,5,4,1,1
+"60915d856f78c960f192847e",29,2,"Asian",6,5,2,"First","Purple","Harm_first","0","1","0",0,5,4,2,2
+"66202163d9e5dba57c5e831d",34,1,"White",2,3,1,"Second","Purple","Harm_first","1","1","1",1,6,5,1,1
+"672a56a48f56810ca01f305c",38,1,"White",7,5,1,"Second","Purple","Restore_first","0","0","0",0,4,4,1,1
+"6040558e6700552508a8f9b5",38,1,"White",6,4,3,"First","Purple","Restore_first","1","1","1",1,5,4,1,1
+"63f794e7d8d24753edbbb136",39,2,"White",4,2,2,"Second","Purple","Restore_first","1","1","1",1,4,4,1,1
+"66a2ba0ab98cf9afedb70111",41,2,"White",6,4,3,"First","Blue","Harm_first","1","1","1",1,4,4,1,1
+"67883d53705991d641bb1743",32,1,"White",5,2,3,"First","Purple","Restore_first","1","1","1",1,6,3,1,1
+"66f0fcf805edfd0f5bedb7a9",31,3,"White",1,3,3,"First","Blue","Restore_first","1","1","1",1,5,5,2,2
+"670211aa7578cc81a0c41fb7",28,1,"Hispanic or Latinx",2,4,3,"Second","Purple","Restore_first","1","1","1",1,6,5,1,1
+"64d5219df0415c9a7c609c19",49,1,"White",3,5,3,"First","Purple","Restore_first","1","1","1",1,6,5,1,1
+"67746ee55ca6064173cd144c",29,1,"Black or African American",4,5,3,"First","Blue","Restore_first","1","1","1",1,6,6,1,6
+"6111af1630b35a24a8476060",33,2,"Multiracial",3,3,3,"First","Purple","Harm_first","0","0","0",0,4,4,2,2
+"6742175b38ca2357bfb70682",35,1,"Hispanic or Latinx",3,5,3,"First","Purple","Restore_first","1","1","1",1,6,4,1,1
+"5f8cbc5c355ea745e6cef2ca",40,2,"Multiracial",2,4,2,"Second","Purple","Harm_first","1","1","1",1,6,3,1,1
+"666f31820e74d2b2fe99a088",32,1,"Multiracial",2,3,1,"Second","Purple","Restore_first","1","1","1",1,4,3,1,2
+"631c8e97db06f601f81bd82f",28,1,"White",5,6,3,"First","Purple","Harm_first","0","0","1",1,3,2,2,2
+"5ac5260dfa3b4e0001736dd3",31,1,"Hispanic or Latinx",2,3,3,"First","Purple","Restore_first","1","1","0",1,5,4,2,2
+"665b7b047373d8da553237a6",25,1,"Asian",3,5,2,"First","Blue","Restore_first","1","1","1",1,5,4,1,2
+"60fd6618f9a377f54dcdf318",38,1,"White",5,6,3,"First","Blue","Restore_first","1","1","1",1,5,5,1,1
+"677cf954ee12db770bcedc44",20,1,"Asian",6,3,3,"Second","Purple","Restore_first","1","1","1",1,5,4,1,2
+"677b3a044229c2e3c5a76d83",29,1,"White",6,5,3,"Second","Blue","Harm_first","1","1","1",1,5,4,1,1
+"5f726103e138fe19277a7d0f",38,3,"Multiracial",3,3,2,"First","Purple","Restore_first","1","1","1",1,6,4,1,2
+"566a3e0e7da0350012b3ec49",48,1,"White",6,5,3,"Second","Blue","Restore_first","1","1","1",1,6,2,1,1
+"57dd186e6598aa0001992616",30,1,"White",4,5,1,"First","Blue","Restore_first","1","1","1",1,6,5,1,1
+"668d4a84ba6d354ca68d97ff",41,2,"White",5,2,2,"Second","Purple","Harm_first","1","1","1",1,5,4,1,1
+"62e2f0f23427f0ab91180313",39,1,"White",5,5,2,"First","Purple","Restore_first","1","1","1",1,5,4,1,1
+"5e0696dea7fba607951ae479",40,1,"Multiracial",4,3,2,"Second","Blue","Harm_first","0","0","0",0,6,6,1,2
+"66be1b073b1723c31d81f364",30,1,"White",4,6,3,"First","Purple","Harm_first","1","1","1",1,5,5,1,1
+"6632e71b65934c5810fb2eff",24,2,"White",3,4,3,"Second","Blue","Harm_first","0","1","1",1,4,4,2,2
+"662ae95388403e308b37514d",48,2,"White",4,5,2,"First","Blue","Harm_first","1","1","1",1,6,6,1,1
+"643b53b6aeaabf186d24e099",50,1,"White",2,3,2,"Second","Purple","Harm_first","1","1","1",1,5,5,2,2
+"5c91ab9b47fad40011be8306",34,1,"White",2,2,2,"First","Purple","Harm_first","1","1","1",1,6,6,1,1
+"6595be83dbc6d36b1ef53d28",45,1,"White",4,3,2,"Second","Blue","Restore_first","0","0","0",0,4,4,1,1
+"6630f9674cd8cd6fddb1ca7e",23,2,"Multiracial",2,5,2,"First","Blue","Restore_first","0","0","0",0,5,5,1,1
+"67047ee9910a4dfe0c338eb7",36,2,"White",5,4,2,"First","Blue","Restore_first","1","1","1",1,5,5,1,1
+"650b03136ab3d4c832d98b71",31,1,"White",2,4,3,"First","Blue","Harm_first","1","1","1",1,2,2,2,2
+"6779e057abd542d5406d0baa",38,2,"Asian",6,6,3,"First","Purple","Restore_first","1","1","1",1,6,5,1,1
+"6767d7cb119ea20af1676aeb",42,3,"White",1,3,1,"Second","Purple","Restore_first","1","1","1",1,5,3,1,1
+"63d42902a85ae3e7b4920266",30,1,"Asian",4,5,2,"First","Blue","Harm_first","1","1","1",1,5,2,2,2
+"667433338e6cc9e53c828774",41,2,"Black or African American",3,4,3,"First","Blue","Restore_first","1","1","1",1,6,6,1,1
+"66a529d528f1beaaf60ec987",36,2,"White",3,2,1,"Second","Purple","Restore_first","0","0","0",0,5,5,1,2
+"674cce152c8dbd42a1e502ef",29,1,"Black or African American",5,6,2,"First","Purple","Harm_first","1","1","1",1,6,6,1,2
+"677968daf8dc4ddeecc53a73",50,2,"White",6,6,3,"First","Blue","Harm_first","1","1","0",1,4,4,1,3
+"67535345f1d0cdb79560d034",30,2,"White",7,6,2,"Second","Blue","Restore_first","0","0","0",0,6,6,1,1
+"677a37f304e6f6cfa45e3f19",27,2,"White",6,5,2,"Second","Blue","Restore_first","1","1","1",1,6,4,1,3
+"5fa4c21a04bc5912180291bc",42,1,"Black or African American",4,4,2,"Second","Purple","Restore_first","0","0","1",0,3,3,1,1
+"5d100e740277ff00152f7562",48,2,"White",2,3,3,"Second","Blue","Restore_first","1","1","1",0,1,1,1,1
+"66a6bbb40b48d0e4f326767e",33,1,"White",6,5,1,"Second","Blue","Harm_first","0","1","1",1,6,6,1,1
+"5f23ff398626c51fdd6c3fb5",43,2,"White",8,6,3,"Second","Purple","Harm_first","1","1","1",1,5,4,1,1
+"66231fc6e1ecba676935943a",38,1,"White",2,4,2,"Second","Purple","Harm_first","1","1","1",1,4,4,3,3
+"5d4a7036c068b4001d0beebe",39,2,"White",1,5,2,"Second","Blue","Restore_first","0","0","0",0,6,5,1,1
+"598262809dfc3e00011d7f99",47,2,"White",1,3,3,"Second","Blue","Harm_first","0","1","1",1,5,5,2,2
+"546e72bafdf99b2b8df98426",35,2,"Multiracial",2,5,3,"Second","Blue","Harm_first","1","1","1",1,4,4,2,2
+"6664dfc807e75330a8b54a8b",32,1,"White",6,3,1,"Second","Purple","Harm_first","1","1","1",1,5,5,1,1
+"664d145fa354afdb587d3e4a",35,2,"White",6,3,3,"First","Purple","Restore_first","1","1","1",1,5,4,1,1
+"6751029bbc56ad2917b27778",47,1,"Black or African American",1,3,2,"First","Blue","Harm_first","1","1","1",1,4,4,1,2
+"6718da927f1110131780367d",36,1,"Multiracial",2,3,1,"Second","Blue","Restore_first","1","1","1",1,6,5,1,2
+"676749381fe84453ec46e9b8",48,1,"White",6,5,3,"Second","Blue","Restore_first","1","1","1",1,5,4,1,3
+"675355f5119e42585a9226cf",25,1,"White",7,5,2,"Second","Blue","Restore_first","1","1","1",1,6,4,1,2
+"677dbe0a089cde3e82e4dbed",24,1,"White",6,6,2,"First","Blue","Restore_first","1","1","1",1,6,5,1,1
+"5cb5f1e080ba1c0001790399",29,1,"White",4,5,2,"First","Blue","Harm_first","1","1","1",1,6,5,1,2
+"66625801c143ca548bcac338",24,2,"White",5,5,2,"Second","Blue","Harm_first","1","1","1",1,6,6,1,1
+"610508c09d61c098f072605b",27,2,"White",1,5,3,"Second","Blue","Harm_first","1","1","1",1,5,2,2,2
+"66b2c34c627ac46030a6b82d",47,2,"Black or African American",4,5,3,"Second","Purple","Harm_first","1","1","1",1,6,6,1,1
+"5c9ebf067114700016da2813",33,1,"Other",2,4,1,"Second","Blue","Harm_first","1","1","1",1,4,4,2,2
+"5d4b033469a77b0018f65b19",44,1,"White",6,5,3,"First","Purple","Harm_first","0","1","0",1,5,5,1,1
+"63383ce105061ac9c94a652a",36,1,"White",3,4,1,"Second","Purple","Harm_first","0","0","0",0,4,4,2,2
+"677c93494698bf88c2c35ac8",42,2,"Hispanic or Latinx",2,5,2,"First","Purple","Harm_first","0","0","0",0,4,4,2,2
+"6522bc14f9cef291c99fc33d",20,1,"White",6,3,1,"First","Purple","Harm_first","0","0","0",0,5,5,1,1
+"67742c109ca0db6f8b78d3c1",35,2,"Black or African American",7,6,2,"Second","Purple","Harm_first","1","1","1",1,5,6,1,1
+"66bfd5babed13f9cad4aeee8",20,2,"White",4,2,2,"First","Purple","Restore_first","1","1","1",1,5,5,1,1
+"63b6ef9027eb90f292852ee4",31,2,"White",3,6,3,"First","Blue","Harm_first","1","1","1",1,6,5,1,1
+"67456b8ca7f25ce61e1d6ecd",44,1,"White",4,5,3,"First","Blue","Harm_first","0","0","0",0,6,4,4,4
+"5d1e2045a37a4d001a1fc2cb",25,1,"Black or African American",1,4,2,"First","Purple","Restore_first","1","1","1",1,6,4,1,2
+"664bb9185b88ec823aa8e2ac",24,4,"White",3,1,1,"Second","Purple","Harm_first","0","0","0",0,1,6,4,1
+"59d8ae913e5ea00001e1d05f",36,1,"White",1,3,1,"First","Blue","Harm_first","1","1","1",1,5,4,1,2
+"673bca4dbf275773bf018d71",28,2,"White",5,5,3,"First","Purple","Restore_first","0","0","0",0,4,4,1,1
+"5b6482e9f5bc0a00019fd571",44,1,"White",8,5,3,"Second","Purple","Restore_first","0","0","0",0,4,4,1,1
+"63d14f9af4f2e033177bbe4c",46,2,"White",3,3,3,"First","Blue","Restore_first","1","1","1",1,5,5,1,5
+"663139cbb8723d403f4e7fc8",46,1,"White",6,5,3,"First","Purple","Harm_first","0","0","0",0,4,4,1,1
+"5cc3f0f9fdb33500018c5eeb",32,2,"White",4,2,2,"First","Blue","Harm_first","1","1","1",1,6,4,1,3

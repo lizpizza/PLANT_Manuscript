@@ -1,0 +1,1232 @@
+---
+title: "PLANTmerged and analyses"
+author: "Lizette Pizza"
+date: "2026-08-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+```
+#Packages
+```{r}
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+library(lme4)
+library(stringr)
+library(GGally)
+library(ggplot2)
+library(ggdist)
+library(PupillometryR)
+library(psych)
+library(lmerTest)
+library(pbkrtest)
+library(pwr)
+library(Superpower)
+library(effectsize)  
+library(scales)
+library(sjPlot)
+library(stats)
+library(writexl)
+library(emmeans)
+library(interactions)
+library(rstatix)
+```
+
+
+# Study 1 
+## Import dataset
+```{r}
+##Study 1
+d3<-read.csv(file="A-PLANT_formerging_20261118.csv", stringsAsFactors = FALSE, na.strings=c("999", "99", "", "X","NA"))
+d3$Prestorer_Shape<-ifelse(d3$Prestorer_Color=="Purple",1,0)
+d3$Study<-1
+d3$ID <- sprintf("S%03d", 1:nrow(d3))#create ID from S001 to S153
+
+ds<-d3
+
+```
+
+
+## Demographics
+
+```{r}
+describe(ds$Age)
+ds$Gender<-factor(ds$Gender, levels = c(1,2,3,4), labels = c("Male", "Female", "Non-binary", "Other"))
+prop.table(table(ds$Gender))*100 #Female=2
+prop.table(table(ds$Race))*100
+prop.table(table(ds$Income))*100 #low income households are 1+2 (40.000 or less a year)
+prop.table(table(ds$Education))*100 #Without a higher education degree 1+2+3 
+prop.table(table(ds$Context))*100 #might not include in demographics 
+```
+## Moral evaluation of the actors
+```{r}
+#### Bad guy ####
+#Binomial test -Model to check whether the proportion of participants choosing the plant harmer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(ds$badplantharmer == 1)
+# Total number of participants
+n <- length(ds$badplantharmer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+```
+
+#Moral evaluation of the action
+```{r}
+#### Severity of harm ####
+describe(cbind(ds$Sever_Plant_harm,ds$Sever_Pot_harm))
+#Paired t-test
+shapiro.test(ds$Sever_Plant_harm)#not normal but just for curiosity do the parametric
+shapiro.test(ds$Sever_Pot_harm)
+#non parametic option
+wilcox.test(ds$Sever_Plant_harm,ds$Sever_Pot_harm, paired = TRUE, alternative = "two.sided")#p<.05 
+#effect size needs long format data
+ds_long <- ds %>%
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+#Effect size
+wilcox_test(ds_long, severity_h ~ patient, paired = TRUE,alternative = "two.sided")
+wilcox_effsize(ds_long, severity_h ~ patient, paired = TRUE)
+
+
+#### Severity of restore ####
+describe(cbind(ds$Sever_Plant_rest,ds$Sever_Pot_rest))
+#Paired t-test
+shapiro.test(ds$Sever_Plant_rest)#not normal but just for curiosity do the parametric
+shapiro.test(ds$Sever_Pot_rest)
+#non parametic option
+wilcox.test(ds$Sever_Plant_rest,ds$Sever_Pot_rest, paired = TRUE, alternative = "two.sided")#p<.05 but for effect size need the data in long format
+#effect size need to be calculated in long format data
+ds_long_res <- ds %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+#Effect size
+wilcox_test(ds_long_res, severity_r ~ patient, paired = TRUE,alternative = "two.sided")
+wilcox_effsize(ds_long_res, severity_r ~ patient, paired = TRUE)
+
+```
+
+
+
+#Study 2 and 3
+## Import datasets
+```{r}
+##Study 2
+d1<-read.csv(file="K-PLANT_1_formerging_20261118.csv", stringsAsFactors = FALSE, na.strings=c("999", "99", "", "X","NA"))
+d1$Prestorer_Shape<-ifelse(d1$Prestorer_Color=="Purple",1,0)
+d1$Prestorer_Shape<-as.factor(d1$Prestorer_Shape)
+d1$Study<-2
+
+
+##Study 3
+d2<-read.csv(file="K-PLANT_2_formerging_20261118.csv", stringsAsFactors = FALSE, na.strings=c("999", "99", "", "X","NA"))
+d2$Study<-3
+d2$Prestorer_Shape<-ifelse(d2$Prestorer_Shape== "Circle", 1, 0)
+d2$Prestorer_Shape<-as.factor(d2$Prestorer_Shape)
+
+vars_needed <- c(
+  "ID",
+  # predictors
+  "Study", "Bio_Pla_dif","Bio_control","Mind_Pla","Mind_Pla_dif", "AgeM_cent",
+  "Prestorer_Order", "Prestorer_Shape", "Maction_Order",
+  # outcomes
+  "likeplantrestorer", "friendplantrestorer",
+  "badplantharmer",
+  "Sever_Plant_harm", "Sever_Pot_harm",
+  "Sever_Plant_rest", "Sever_Pot_rest","PVT_cent","Forced_worse_rev","Forced_better_rev"
+)
+
+# Subset each dataset to just these variables (and keep only those that exist)
+d1_sub <- d1 %>% select(any_of(vars_needed))
+d2_sub <- d2 %>% select(any_of(vars_needed))
+
+d1_sub <- d1_sub %>% mutate(ID_new = paste0("A_", ID))
+d2_sub <- d2_sub %>% mutate(ID_new = paste0("B_", ID))
+dsc <- bind_rows(d1_sub, d2_sub)
+#Exclude participants failing control questions for biology analyses
+dsb<-dsc[dsc$Bio_control==4,]
+
+#Center and standardize biology, mind and age  before using it in the interactions
+dsb$Bio_Pla_dif_cent <- dsb$Bio_Pla_dif - mean(dsb$Bio_Pla_dif, na.rm = TRUE)
+dsb$Bio_Pla_dif_z <- scale(dsb$Bio_Pla_dif, center = TRUE, scale = TRUE)
+dsb$Mind_Pla_dif_cent <- dsb$Mind_Pla_dif - mean(dsb$Mind_Pla_dif, na.rm = TRUE)
+dsb$Mind_Pla_dif_z <- scale(dsb$Mind_Pla_dif, center = TRUE, scale = TRUE)
+dsb$AgeM_cent_z <- scale(dsb$AgeM_cent, center = TRUE, scale = TRUE)
+dsb$PVT_cent_z<-scale(dsb$PVT_cent, center = TRUE, scale = TRUE)
+
+#Factor Study number
+dsb$Study<-as.factor(dsb$Study)
+
+```
+
+## Demographics 
+```{r}
+## Study 2
+describe(d1$Age..Y.)
+describe(d1$Age..M.)
+prop.table(table(d1$Gender))*100
+#To calculate race first compute the multiracial category
+d1 <- d1 %>%
+  mutate(
+    Race_grouped = case_when(
+      is.na(Race) ~ NA_character_,
+      str_detect(Race, ",") ~ "Multiracial",
+      Race == "Multiracial" ~ "Multiracial",
+      TRUE ~ Race
+    )
+  )
+prop.table(table(d1$Race_grouped, useNA = "ifany")) * 100
+d1$lowincome<-ifelse(d1$Income<=40000,1,0)
+prop.table(table(d1$lowincome))*100 #low income households are 1+2 (40.000 or less a year)
+d1$Income<-as.numeric(d1$Income)
+prop.table(table(d1$P1_Education))*100 # 
+prop.table(table(d1$P2_Education))*100 # 
+
+## Study 3
+describe(d2$Age..Y.)
+describe(d2$Age..M.)
+prop.table(table(d2$Gender))*100
+#To calculate race first compute the multiracial category
+d2 <- d2 %>%
+  mutate(
+    Race_grouped = case_when(
+      is.na(Race) ~ NA_character_,
+      str_detect(Race, ",") ~ "Multiracial",
+      Race == "Multiracial" ~ "Multiracial",
+      TRUE ~ Race
+    )
+  )
+prop.table(table(d2$Race_grouped, useNA = "ifany")) * 100
+```
+## Moral evaluation of the actors
+```{r}
+#### Bad guy Study 2 ####
+#Model to check whether the proportion of participants choosing the harmer puppet is significantly different from 0.5.
+#binomial test
+#number of successes
+summary(d1$badplantharmer)
+num_successes <- sum(d1$badplantharmer == 1,na.rm = TRUE)
+
+#Check if there is missing data
+sum(is.na(d1$badplantharmer))
+
+# Total number of participants
+n <- length(d1$badplantharmer)-sum(is.na(d1$badplantharmer))
+
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#### Bad guy Study 3 ####
+#Model to check whether the proportion of participants choosing the harmer puppet is significantly different from 0.5.
+#binomial test
+#number of successes
+summary(d2$badplantharmer)
+num_successes <- sum(d2$badplantharmer == 1,na.rm = TRUE)
+
+#Check if there is missing data
+sum(is.na(d2$badplantharmer))
+
+# Total number of participants
+n <- length(d2$badplantharmer)-sum(is.na(d2$badplantharmer))
+
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+```
+
+#Moral evaluation of the action
+```{r}
+#### Severity of harm Study 2####
+describe(cbind(d1$Sever_Plant_harm,d1$Sever_Pot_harm))
+#Paired t-test
+shapiro.test(d1$Sever_Plant_harm)#not normal but just for curiosity do the parametric
+shapiro.test(d1$Sever_Pot_harm)
+#non parametic option
+wilcox.test(d1$Sever_Plant_harm,d1$Sever_Pot_harm, paired = TRUE, alternative = "two.sided")#p<.05 but for effect size need the data in long format
+#effect size needs long format data
+d1_long <- d1 %>%
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+#Effect size
+wilcox_test(d1_long, severity_h ~ patient, paired = TRUE,alternative = "two.sided")
+wilcox_effsize(d1_long, severity_h ~ patient, paired = TRUE)
+
+#### Severity of restore Study 2####
+describe(cbind(d1$Sever_Plant_rest,d1$Sever_Pot_rest))
+#Paired t-test
+shapiro.test(d1$Sever_Plant_rest)#not normal but just for curiosity do the parametric
+shapiro.test(d1$Sever_Pot_rest)
+#non parametic option
+wilcox.test(d1$Sever_Plant_rest,d1$Sever_Pot_rest, paired = TRUE, alternative = "two.sided")#
+#effect size need to be calculated in long format data
+d1_long_res <- d1 %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+#Effect size
+wilcox_test(d1_long_res, severity_r ~ patient, paired = TRUE,alternative = "two.sided")
+wilcox_effsize(d1_long_res, severity_r ~ patient, paired = TRUE)
+
+
+#### Severity of harm Study 3####
+describe(cbind(d2$Sever_Plant_harm,d2$Sever_Pot_harm))
+#Paired t-test
+shapiro.test(d2$Sever_Plant_harm)#not normal but just for curiosity do the parametric
+shapiro.test(d2$Sever_Pot_harm)
+#non parametic option
+wilcox.test(d2$Sever_Plant_harm,d2$Sever_Pot_harm, paired = TRUE, alternative = "two.sided")#p<.05 but for effect size need the data in long format
+#effect size needs long format data
+d2_long <- d2 %>%
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+#Effect size
+wilcox_test(d2_long, severity_h ~ patient, paired = TRUE,alternative = "two.sided")
+wilcox_effsize(d2_long, severity_h ~ patient, paired = TRUE)
+
+#### Severity of restore Study 3####
+describe(cbind(d2$Sever_Plant_rest,d2$Sever_Pot_rest))
+#Paired t-test
+shapiro.test(d2$Sever_Plant_rest)#not normal but just for curiosity do the parametric
+shapiro.test(d2$Sever_Pot_rest)
+#non parametic option
+wilcox.test(d2$Sever_Plant_rest,d2$Sever_Pot_rest, paired = TRUE, alternative = "two.sided")#
+#effect size need to be calculated in long format data
+d2_long_res <- d2 %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+#Effect size
+wilcox_test(d2_long_res, severity_r ~ patient, paired = TRUE,alternative = "two.sided")
+wilcox_effsize(d2_long_res, severity_r ~ patient, paired = TRUE)
+
+```
+
+## Effect of biology knowledge and age
+```{r}
+#### Evaluation of the actor ####
+#Include the Study in case it makes a difference
+summary(model1<-glm(badplantharmer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsb, family = binomial))
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + Study+Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsb, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + AgeM_cent+ Study + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsb, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+#### Evaluation of the action ####
+#Harm
+dsb_long <- dsb %>% #create long format data
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+dsb_long$patient <- factor(dsb_long$patient, levels = c("Sever_Plant_harm", "Sever_Pot_harm"),
+                           labels = c("Plant", "Bucket"))
+#Control for Study in case it makes a difference
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z+ Study + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+#Explore further the interaction
+# Estimate the slope of Biology within each patient group
+slopes_bio<-emtrends(model1, ~ patient, var = "Bio_Pla_dif_z") #If there were more than 2 patients I could compare the pairwise slopes but 
+emtrends(model1, ~ patient, var = "Bio_Pla_dif_z")
+test(emtrends(model1, ~ patient, var = "Bio_Pla_dif_z")) #simple slopes were not significant then try at different levels of the bio value
+
+#Now look at different bio values
+bio_vals <- c(-1, 0, 1)   # replace with values meaningful for bio
+
+emm <- emmeans(model1, ~ patient | Bio_Pla_dif_z,
+               at = list(Bio_Pla_dif_z = bio_vals))
+contrast(emm, "pairwise") 
+
+#Model without the interaction
+summary(model1 <- lmer(severity_h ~ patient+Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+
+#Model controlling for the interaction with age
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z+patient*AgeM_cent_z+ Study + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+
+#Restore
+dsb_long_res <- dsb %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+dsb_long_res$patient <- factor(dsb_long_res$patient, levels = c("Sever_Plant_rest", "Sever_Pot_rest"),
+                           labels = c("Plant", "Bucket"))
+
+#Control for Study type in case it makes a difference
+summary(model1 <- lmer(severity_r ~ patient + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+Study+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+#Model without the interaction
+summary(model1 <- lmer(severity_r ~ patient+Bio_Pla_dif_z+Study + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+#Model controlling for the interaction with age
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+patient*AgeM_cent_z+Study + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+#### Correlation of biology and age ####
+cor.test(dsb$Bio_Pla_dif,dsb$AgeM_cent, method = "spearman")
+```
+
+## Adding the effect of attributions of mind to plants
+```{r}
+#### Evaluation of the actor ####
+#Include the Study in case it makes a difference
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + Mind_Pla_dif + Study+Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsb, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+#### Evaluation of the action ####
+#Harm
+dsb_long <- dsb %>% #create long format data
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+dsb_long$patient <- factor(dsb_long$patient, levels = c("Sever_Plant_harm", "Sever_Pot_harm"),
+                           labels = c("Plant", "Bucket"))
+#Control for Study in case it makes a difference
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z+patient*Mind_Pla_dif_z+ Study + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+
+#Restore
+dsb_long_res <- dsb %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+dsb_long_res$patient <- factor(dsb_long_res$patient, levels = c("Sever_Plant_rest", "Sever_Pot_rest"),
+                           labels = c("Plant", "Bucket"))
+
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+patient*Mind_Pla_dif_z+Study+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+```
+#Study 3 additional analyses
+```{r}
+#### Choice of worse action ####
+#binomial test
+#number of successes
+summary(d2$Forced_worse_rev)
+num_successes <- sum(d2$Forced_worse_rev == 1,na.rm = TRUE)
+
+#Check if there is missing data
+sum(is.na(d2$Forced_worse_rev))
+
+# Total number of participants
+n <- length(d2$Forced_worse_rev)-sum(is.na(d2$Forced_worse_rev))
+
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#### Choice of better action ####
+#binomial test
+#number of successes
+summary(d2$Forced_better_rev)
+num_successes <- sum(d2$Forced_better_rev == 1,na.rm = TRUE)
+
+#Check if there is missing data
+sum(is.na(d2$Forced_better_rev))
+
+# Total number of participants
+n <- length(d2$Forced_better_rev)-sum(is.na(d2$Forced_better_rev))
+
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#### Effect of PVT controlling for Biology score #### 
+##### Evaluation of the actor
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif+ PVT_cent+Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsb, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+##### Evaluation of the action 
+#Harm
+dsb_long <- dsb %>% #create long format data
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+dsb_long$patient <- factor(dsb_long$patient, levels = c("Sever_Plant_harm", "Sever_Pot_harm"),
+                           labels = c("Plant", "Bucket"))
+#Control for Study in case it makes a difference
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z+ patient*PVT_cent_z + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+#Restore
+dsb_long_res <- dsb %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+dsb_long_res$patient <- factor(dsb_long_res$patient, levels = c("Sever_Plant_rest", "Sever_Pot_rest"),
+                           labels = c("Plant", "Bucket"))
+
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+patient*PVT_cent_z+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+#### Forced choice between living and artificial plant #### 
+#binomial test
+#number of successes
+summary(d2$Worse_Liv)
+num_successes <- sum(d2$Worse_Liv == 1,na.rm = TRUE)
+
+#Check if there is missing data
+sum(is.na(d2$Worse_Liv))
+
+# Total number of participants
+n <- length(d2$Worse_Liv)-sum(is.na(d2$Worse_Liv))
+
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+# Children's justifications
+#Proportions saying reasons related to the plant being alive 
+prop.table(table(d2$Jt_Worse_Liv_bio))*100
+table(d2$Jt_Worse_Liv_bio,d2$Worse_Liv)#All participants referring that the plant is alive said it was worse to harm it
+prop.table(table(d2$Jt_Worse_Liv_Pbreak))*100
+prop.table(table(d2$Jt_Worse_Liv_Preal))*100
+prop.table(table(d2$Jt_Worse_Liv_Pbenef))*100
+```
+
+## SUPPLEMENTARY INFORMATION  
+
+### Study 1
+#### Counterbalanced factors' effects on Evaluation of the actor
+```{r}
+#model to check the evaluation controlling for three factors counterbalanced
+summary(model1<-glm(badplantharmer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = ds, family = binomial))
+```
+
+#### Counterbalanced factors' effects on Evaluation of the action
+```{r}
+#### Severity of harm ####
+#Get data in long format
+ds_long <- ds %>%
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+summary(model1 <- lmer(severity_h ~ patient +Maction_Order+Prestorer_Order+Prestorer_Color + (1|Prolific), data = ds_long))
+anova(model1)
+
+#### Severity of help ####
+#Get data in long format
+ds_long_res <- ds %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+
+summary(model1 <- lmer(severity_r ~ patient +Maction_Order+Prestorer_Order+Prestorer_Color + (1|Prolific), data = ds_long_res))
+anova(model1)
+
+```
+
+#### Social preferences and Counterbalanced factors' effects 
+```{r}
+#### Like ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(ds$likeplantrestorer == 1)
+# Total number of participants
+n <- length(ds$likeplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(likeplantrestorer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = ds, family = binomial))
+# Simplified model to check overall preference
+summary(model1 <- glm(likeplantrestorer ~ 1, data = ds, family = binomial))
+
+#### Trust ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(ds$trustplantrestorer == 1)
+# Total number of participants
+n <- length(ds$trustplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(trustplantrestorer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = ds, family = binomial))
+# Simplified model to check overall preference
+summary(model1 <- glm(trustplantrestorer ~ 1, data = ds, family = binomial))
+
+#### Community ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(ds$commuplantrestorer == 1)
+# Total number of participants
+n <- length(ds$commuplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(commuplantrestorer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = ds, family = binomial))
+# Simplified model to check overall preference
+summary(model1 <- glm(commuplantrestorer ~ 1, data = ds, family = binomial))
+
+
+```
+
+### Study 2
+#### Counterbalanced factors' effects on Evaluation of the actor
+```{r}
+summary(model1<-glm(badplantharmer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = d1, family = binomial))
+```
+
+#### Counterbalanced factors' effects on Evaluation of the action
+```{r}
+#### Severity of harm ####
+#Get data in long format
+ds_long <- d1 %>%
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+summary(model1 <- lmer(severity_h ~ patient +Maction_Order+Prestorer_Order+Prestorer_Color + (1|ID), data = ds_long))
+anova(model1)
+
+#### Severity of help ####
+#Get data in long format
+ds_long_res <- d1 %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+
+summary(model1 <- lmer(severity_r ~ patient +Maction_Order+Prestorer_Order+Prestorer_Color + (1|ID), data = ds_long_res))
+anova(model1)
+```
+
+## Effect of biology knowledge and age
+```{r}
+#Only look at Study 2
+dsbs2<-dsb[dsb$Study==2,]
+#### Evaluation of the actor ####
+summary(model1<-glm(badplantharmer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + AgeM_cent+ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+#### Evaluation of the action ####
+#Harm
+dsb_long <- dsbs2 %>% #create long format data
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+dsb_long$patient <- factor(dsb_long$patient, levels = c("Sever_Plant_harm", "Sever_Pot_harm"),
+                           labels = c("Plant", "Bucket"))
+#Control for Study in case it makes a difference
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+#Explore further the interaction
+# Estimate the slope of Biology within each patient group
+slopes_bio<-emtrends(model1, ~ patient, var = "Bio_Pla_dif_z") #If there were more than 2 patients I could compare the pairwise slopes but 
+emtrends(model1, ~ patient, var = "Bio_Pla_dif_z")
+test(emtrends(model1, ~ patient, var = "Bio_Pla_dif_z")) #simple slopes were not significant then try at different levels of the bio value
+
+#Now look at different bio values
+bio_vals <- c(-1, 0, 1)   # replace with values meaningful for bio
+
+emm <- emmeans(model1, ~ patient | Bio_Pla_dif_z,
+               at = list(Bio_Pla_dif_z = bio_vals))
+contrast(emm, "pairwise") 
+
+#Model controlling for the interaction with age
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z+patient*AgeM_cent_z+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+
+#Restore
+dsb_long_res <- dsbs2 %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+dsb_long_res$patient <- factor(dsb_long_res$patient, levels = c("Sever_Plant_rest", "Sever_Pot_rest"),
+                           labels = c("Plant", "Bucket"))
+
+#Control for Study type in case it makes a difference
+summary(model1 <- lmer(severity_r ~ patient + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+#Explore further the interaction
+# Estimate the slope of Biology within each patient group
+slopes_bio<-emtrends(model1, ~ patient, var = "Bio_Pla_dif_z") #If there were more than 2 patients I could compare the pairwise slopes but 
+emtrends(model1, ~ patient, var = "Bio_Pla_dif_z")
+test(emtrends(model1, ~ patient, var = "Bio_Pla_dif_z")) 
+
+#Now look at different bio values
+bio_vals <- c(-1, 0, 1)   # replace with values meaningful for bio
+
+emm <- emmeans(model1, ~ patient | Bio_Pla_dif_z,
+               at = list(Bio_Pla_dif_z = bio_vals))
+contrast(emm, "pairwise") 
+
+#Model controlling for the interaction with age
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+patient*AgeM_cent_z + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+
+```
+
+#### Social preferences and Counterbalanced factors' effects 
+```{r}
+#### Like ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(d1$likeplantrestorer == 1,na.rm = TRUE)
+# Total number of participants
+n <- length(d1$likeplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(likeplantrestorer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = d1, family = binomial))
+# Simplified model to check overall preference
+summary(model1 <- glm(likeplantrestorer ~ 1, data = d1, family = binomial))
+
+#### Friend ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(d1$friendplantrestorer == 1,na.rm = TRUE)
+# Total number of participants
+n <- length(d1$friendplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(friendplantrestorer ~ Prestorer_Order + Prestorer_Color + Maction_Order, data = d1, family = binomial))
+# Simplified model to check overall preference
+summary(model1 <- glm(friendplantrestorer ~ 1, data = d1, family = binomial))
+
+```
+#### Effect of Biology knowledge and age on Social preferences
+```{r}
+#### Like ####
+summary(model1<-glm(likeplantrestorer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+summary(model1<-glm(likeplantrestorer ~ Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(likeplantrestorer ~ Bio_Pla_dif + AgeM_cent+ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+#### Friend ####
+summary(model1<-glm(friendplantrestorer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+summary(model1<-glm(friendplantrestorer ~ Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(friendplantrestorer ~ Bio_Pla_dif + AgeM_cent+ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+```
+
+
+### Study 3
+#### Counterbalanced factors' effects on Evaluation of the actor
+```{r}
+summary(model1<-glm(badplantharmer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = d2, family = binomial))
+```
+
+#### Counterbalanced factors' effects on Evaluation of the action
+```{r}
+#### Severity of harm ####
+#Get data in long format
+ds_long <- d2 %>%
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+summary(model1 <- lmer(severity_h ~ patient +Maction_Order+Prestorer_Order+Prestorer_Shape + (1|ID), data = ds_long))
+anova(model1)
+
+#### Severity of help ####
+#Get data in long format
+ds_long_res <- d2 %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+
+summary(model1 <- lmer(severity_r ~ patient +Maction_Order+Prestorer_Order+Prestorer_Shape + (1|ID), data = ds_long_res))
+anova(model1)
+```
+#Counterbalanced factors' effects on Choice of the worst and best action
+```{r}
+summary(model1<-glm(Forced_worse_rev ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = d2, family = binomial))
+summary(model1<-glm(Forced_better_rev ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = d2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+```
+## Effect of biology knowledge and age
+```{r}
+#Only look at Study 2
+dsbs3<-dsb[dsb$Study==3,]
+#### Evaluation of the actor ####
+summary(model1<-glm(badplantharmer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(badplantharmer ~ Bio_Pla_dif + AgeM_cent+ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+#### Evaluation of the action ####
+#Harm
+dsb_long <- dsbs3 %>% #create long format data
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+dsb_long$patient <- factor(dsb_long$patient, levels = c("Sever_Plant_harm", "Sever_Pot_harm"),
+                           labels = c("Plant", "Bucket"))
+#Control for Study in case it makes a difference
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+#Model controlling for the interaction with age
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif_z+patient*AgeM_cent_z+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+
+#Restore
+dsb_long_res <- dsbs3 %>%
+  pivot_longer(cols = c(Sever_Plant_rest, Sever_Pot_rest),
+               names_to = "patient",
+               values_to = "severity_r")
+dsb_long_res$patient <- factor(dsb_long_res$patient, levels = c("Sever_Plant_rest", "Sever_Pot_rest"),
+                           labels = c("Plant", "Bucket"))
+
+#Control for Study type in case it makes a difference
+summary(model1 <- lmer(severity_r ~ patient + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+ Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+#Model controlling for the interaction with age
+summary(model1 <- lmer(severity_r ~ patient*Bio_Pla_dif_z+patient*AgeM_cent_z + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long_res))
+#Explore further the interaction
+# Estimate the slope of Biology within each patient group
+slopes_age<-emtrends(model1, ~ patient, var = "AgeM_cent_z") #If there were more than 2 patients I could compare the pairwise slopes but 
+emtrends(model1, ~ patient, var = "AgeM_cent_z")
+test(emtrends(model1, ~ patient, var = "AgeM_cent_z")) 
+ 
+
+```
+
+#### Social preferences and Counterbalanced factors' effects 
+```{r}
+#### Like ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(d2$likeplantrestorer == 1,na.rm = TRUE)
+# Total number of participants
+n <- length(d2$likeplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(likeplantrestorer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = d2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+# Simplified model to check overall preference
+summary(model1 <- glm(likeplantrestorer ~ 1, data = d2, family = binomial))
+
+#### Friend ####
+#Binomial test - Model to check whether the proportion of participants choosing the plant restorer is significantly different from 0.5.
+#number of successes
+num_successes <- sum(d2$friendplantrestorer == 1,na.rm = TRUE)
+# Total number of participants
+n <- length(d2$friendplantrestorer)
+# Null hypothesis proportion (0.5 for a binary choice)
+p_null <- 0.5
+# Perform the binomial test
+binom.test(num_successes, n, p = p_null)
+#Effect size
+p0 <- p_null  # Null hypothesis proportion (chance level=0.5)
+p1 <- num_successes/n  #observed proportion
+ES.h(p1, p0)  # Effect size using Cohen's h for proportions
+
+#model to check the preference controlling for three factors counterbalanced
+summary(model1<-glm(friendplantrestorer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = d2, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+# Simplified model to check overall preference
+summary(model1 <- glm(friendplantrestorer ~ 1, data = d2, family = binomial))
+
+```
+#### Effect of Biology knowledge and age on Social preferences
+```{r}
+#### Like ####
+summary(model1<-glm(likeplantrestorer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+summary(model1<-glm(likeplantrestorer ~ Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(likeplantrestorer ~ Bio_Pla_dif + AgeM_cent+ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+
+#### Friend ####
+summary(model1<-glm(friendplantrestorer ~ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+summary(model1<-glm(friendplantrestorer ~ Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+#Adding age to the model
+summary(model1<-glm(friendplantrestorer ~ Bio_Pla_dif + AgeM_cent+ Prestorer_Order + Prestorer_Shape + Maction_Order, data = dsbs3, family = binomial))
+exp(cbind(OR=coef(model1), confint(model1)))
+```
+#Plots
+```{r}
+#merge adult and children data
+dsc <- dsc[, names(dsc) != "Prestorer_Shape"]
+
+dsall <- bind_rows(ds, dsc)
+
+# --- 1. Compute proportions per study ---------------------------------------
+plot_data <- dsall %>%
+  filter(!is.na(badplantharmer)) %>%
+  group_by(Study) %>%
+  summarise(
+    harmer   = mean(badplantharmer == 1, na.rm = TRUE) * 100,   # % answering 1 (plant harmer)
+    restorer = mean(badplantharmer == 0, na.rm = TRUE) * 100,   # % answering 0 (plant restorer)
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_longer(
+    cols = c(harmer, restorer),
+    names_to = "answer",
+    values_to = "percent"
+  ) %>%
+  mutate(
+    answer = factor(answer,
+                    levels = c("restorer", "harmer"),   # restorer stacked on top
+                    labels = c("Plant restorer", "Plant harmer")),
+    Study = factor(
+  as.character(Study),
+  levels = c("1", "2", "3"),
+  labels = c("Adults S1", "Children S2", "Children S3")
+)
+  )
+
+# Star labels: placed in the middle of the orange (harmer) segment
+stars <- plot_data %>%
+  filter(answer == "Plant harmer") %>%
+  mutate(y_pos = 60,
+         label = "***")
+
+# --- 2. Plot -----------------------------------------------------------------
+Fig2<-ggplot(plot_data, aes(x = Study, y = percent, fill = answer)) +
+  geom_col(width = 0.8, colour = "black", linewidth = 0.8) +
+  geom_hline(yintercept = 50, linetype = "dashed", colour = "grey40") +
+  geom_text(data = stars,
+            aes(x = Study, y = y_pos, label = label),
+            inherit.aes = FALSE,
+            size = 7, colour = "black") +
+  scale_fill_manual(
+    values = c("Plant restorer" = "#C86FA6",   # rose
+               "Plant harmer"   = "#E69F00")   # orange
+  ) +
+  scale_y_continuous(breaks = c(0, 25, 50, 75, 100),
+                     labels = function(x) paste0(x, "%"),
+                     expand = c(0, 0)) +
+  coord_cartesian(ylim = c(0, 100)) + 
+  labs(title = "Who is the bad guy?",
+       x = "",
+       y = NULL,                               # % now lives in the tick labels
+       fill = NULL) +
+  theme_classic(base_size = 12) +
+  theme(
+    plot.title      = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "bottom"
+  )
+#Edited for sharing 
+ggsave(filename = "includepath.png",
+       plot     = Fig2,
+       width    = 3.1,
+       height   = 4,
+       units    = "in",
+       dpi      = 300,
+       bg       = "white")
+
+
+#### Severity judgements adults ####
+eval_long <- d3 %>%
+  select(Sever_Plant_harm, Sever_Pot_harm, Sever_Plant_rest, Sever_Pot_rest) %>%
+  mutate(across(everything(), ~ as.numeric(as.character(.x)))) %>%
+  pivot_longer(
+    cols          = everything(),
+    names_to      = c("Target", "Action"),
+    names_pattern = "Sever_(Plant|Pot)_(harm|rest)",
+    values_to     = "rating"
+  ) %>%
+  filter(!is.na(rating)) %>%
+  mutate(
+    Target = factor(Target, levels = c("Plant", "Pot"),
+                    labels = c("plant", "artifact")),
+    Action = factor(Action, levels = c("harm", "rest"),
+                    labels = c("Knocking Down", "Restoring"))
+  )
+
+# Stars above each panel
+stars <- data.frame(
+  Action = factor(c("Knocking Down", "Restoring"),
+                  levels = c("Knocking Down", "Restoring")),
+  x      = 1.5,
+  y      = 6.6,
+  label  = "***"
+)
+
+# --- 2. Plot -----------------------------------------------------------------
+Fig2.2 <- ggplot(eval_long, aes(x = Target, y = rating, fill = Target)) +
+  geom_boxplot(width = 0.75, colour = "black", linewidth = 0.6,
+               outlier.shape = NA) +
+  geom_jitter(width = 0.12, height = 0.05, shape = 21,
+              fill = "white", colour = "grey30", alpha = 0.7, size = 1.3) +
+  stat_summary(fun = mean, geom = "point",
+               shape = 23,              # filled diamond
+               size = 2,
+               fill = "darkred",
+               colour = "darkred",        # thin outline so it stands out on the box
+               stroke = 0.8) +
+  geom_text(data = stars, aes(x = x, y = y, label = label),
+            inherit.aes = FALSE, size = 6) +
+  facet_wrap(~ Action, strip.position = "bottom") +
+  scale_fill_manual(values = c("plant" = "#009E73", "artifact" = "#F0E442")) +
+  scale_y_continuous(
+    breaks = 1:6,
+    labels = c(1, 2, 3, 4, 5, 6)
+  ) +
+  coord_cartesian(ylim = c(1, 6.8)) +
+  labs(title = NULL, x = NULL, y = NULL) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title         = element_text(hjust = 0.5, face = "bold"),
+    strip.placement    = "outside",
+    strip.text         = element_text(face = "bold", size = 15),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    panel.grid.major.y = element_line(colour = "grey91", linewidth = 0.4),
+    panel.spacing      = unit(1.5, "lines"),
+    legend.position    = "none"
+  )
+
+#Edited for sharing
+ggsave(filename = "includepath.png",
+       plot     = Fig2.2,
+       width    = 5,
+       height   = 4,
+       units    = "in",
+       dpi      = 300,
+       bg       = "white")
+
+
+#### Severity judgment children ####
+eval_long_c <- dsc %>%
+  select(Sever_Plant_harm, Sever_Pot_harm, Sever_Plant_rest, Sever_Pot_rest) %>%
+  mutate(across(everything(), ~ as.numeric(as.character(.x)))) %>%
+  pivot_longer(
+    cols          = everything(),
+    names_to      = c("Target", "Action"),
+    names_pattern = "Sever_(Plant|Pot)_(harm|rest)",
+    values_to     = "rating"
+  ) %>%
+  filter(!is.na(rating)) %>%
+  mutate(
+    Target = factor(Target, levels = c("Plant", "Pot"),
+                    labels = c("plant", "artifact")),
+    Action = factor(Action, levels = c("harm", "rest"),
+                    labels = c("Knocking Down", "Restoring"))
+  )
+
+# Stars above each panel
+stars <- data.frame(
+  Action = factor(c("Knocking Down", "Restoring"),
+                  levels = c("Knocking Down", "Restoring")),
+  x      = 1.5,
+  y      = 6.6,
+  label  = "***"
+)
+
+# --- 2. Plot -----------------------------------------------------------------
+Fig2.3 <- ggplot(eval_long_c, aes(x = Target, y = rating, fill = Target)) +
+  geom_boxplot(width = 0.75, colour = "black", linewidth = 0.6,
+               outlier.shape = NA) +
+  geom_jitter(width = 0.12, height = 0.05, shape = 21,
+              fill = "white", colour = "grey30", alpha = 0.7, size = 1.3) +
+  stat_summary(fun = mean, geom = "point",
+               shape = 23,              # filled diamond
+               size = 2,
+               fill = "darkred",
+               colour = "darkred",        # thin outline so it stands out on the box
+               stroke = 0.8) +
+  geom_text(data = stars, aes(x = x, y = y, label = label),
+            inherit.aes = FALSE, size = 6) +
+  facet_wrap(~ Action, strip.position = "bottom") +
+  scale_fill_manual(values = c("plant" = "#009E73", "artifact" = "#F0E442")) +
+  scale_y_continuous(
+    breaks = 1:6,
+    labels = c(1, 2, 3, 4, 5, 6)
+  ) +
+  coord_cartesian(ylim = c(1, 6.8)) +
+  labs(title = NULL, x = NULL, y = NULL) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title         = element_text(hjust = 0.5, face = "bold"),
+    strip.placement    = "outside",
+    strip.text         = element_text(face = "bold", size = 15),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor   = element_blank(),
+    panel.grid.major.y = element_line(colour = "grey91", linewidth = 0.4),
+    panel.spacing      = unit(1.5, "lines"),
+    legend.position    = "none"
+  )
+
+
+ggsave(filename = "includepath.png",
+       plot     = Fig2.3,
+       width    = 5,
+       height   = 4,
+       units    = "in",
+       dpi      = 300,
+       bg       = "white")
+
+#### interaction with biology ####
+dsb_long <- dsb %>% #create long format data
+  pivot_longer(cols = c(Sever_Plant_harm, Sever_Pot_harm),
+               names_to = "patient",
+               values_to = "severity_h")
+
+dsb_long$patient <- factor(dsb_long$patient, levels = c("Sever_Plant_harm", "Sever_Pot_harm"),
+                           labels = c("Plant", "Bucket"))
+
+bio_per_child <- dsb_long %>% distinct(ID, Bio_Pla_dif)
+m_bio  <- mean(bio_per_child$Bio_Pla_dif, na.rm = TRUE)
+sd_bio <- sd(bio_per_child$Bio_Pla_dif,   na.rm = TRUE)
+levels_bio <- c(m_bio - sd_bio, m_bio, min(m_bio + sd_bio, 3))
+
+# --- 2. Plant - bucket difference across the whole range ---------------------
+levels(dsb_long$patient)   # pairs() computes FIRST level minus SECOND level
+flip <- FALSE              # set to TRUE if the first level is the bucket,
+                           # so the plot shows plant minus bucket
+summary(model1 <- lmer(severity_h ~ patient*Bio_Pla_dif + Prestorer_Order + Prestorer_Shape + Maction_Order + (1|ID_new), data = dsb_long))
+
+diff_over <- function(at_vals) {
+  emm <- emmeans(model1, ~ patient | Bio_Pla_dif,
+                 at = list(Bio_Pla_dif = at_vals),
+                 lmer.df = "satterthwaite")
+  out <- summary(pairs(emm, reverse = flip), infer = c(TRUE, TRUE))
+  as.data.frame(out)
+}
+
+x_max     <- 3          # maximum possible score
+grid      <- seq(-2, x_max, length.out = 200)
+diff_grid <- diff_over(grid)
+diff_pts  <- diff_over(levels_bio)
+print(diff_pts)   # estimates, CIs and p-values at -1 SD, mean, +1 SD
+
+# --- 3. Labels for the three follow-up points --------------------------------
+p_to_star <- function(p) case_when(p < .001 ~ "***", p < .01 ~ "**",
+                                   p < .05 ~ "*", TRUE ~ "n.s.")
+diff_pts$star  <- p_to_star(diff_pts$p.value)
+diff_pts$Level <- c("-1 SD", "Mean", "Max")
+
+# --- 4. Plot -----------------------------------------------------------------
+Fig2.5 <- ggplot(diff_grid, aes(Bio_Pla_dif, estimate)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey30") +
+  geom_ribbon(aes(ymin = lower.CL, ymax = upper.CL),
+              fill = "#009E73", alpha = 0.25) +
+  geom_line(colour = "#009E73", linewidth = 1.3) +
+  geom_vline(xintercept = levels_bio, linetype = "dotted", colour = "grey60") +
+  geom_pointrange(data = diff_pts,
+                  aes(ymin = lower.CL, ymax = upper.CL),
+                  shape = 23, fill = "darkred", colour = "black",
+                  size = 0.8, stroke = 0.8) +
+  geom_text(data = diff_pts,
+            aes(y = upper.CL + 0.15, label = star), size = 5) +
+  geom_text(data = diff_pts,
+            aes(y = min(diff_grid$lower.CL) - 0.15, label = Level),
+            size = 2, colour = "grey30") +
+  scale_x_continuous(breaks = -2:3) +
+  coord_cartesian(xlim = c(-2, x_max), ylim = c(-2.4, 1.4), clip = "off") +
+  labs(x = "Biology knowledge",
+       y = "Difference in harm evaluation\n(plant \u2212 bucket)") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid.minor   = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_line(colour = "grey91", linewidth = 0.4),
+        axis.title.x       = element_text(face = "bold", margin = margin(t = 10)),
+        axis.title.y       = element_text(face = "bold"),
+        plot.margin        = margin(15, 25, 10, 10))
+
+#Edit for sharing
+ggsave(filename = "includepath.png",
+       plot     = Fig2.5,
+       width    = 3,
+       height   = 3.5,
+       units    = "in",
+       dpi      = 300,
+       bg       = "white")
+```
+

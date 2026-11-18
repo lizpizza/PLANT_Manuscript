@@ -1,0 +1,127 @@
+"ID","Age..Y.","Age..M.","Gender","Race","Income","P1_Education","P2_Education","Bio_Pla_dif","Bio_control","Mind_Pla","Mind_Pla_dif","AgeM_cent","Prestorer_Order","Prestorer_Shape","Maction_Order","likeplantrestorer","friendplantrestorer","badplantharmer","Sever_Plant_harm","Sever_Pot_harm","Sever_Plant_rest","Sever_Pot_rest","PVT_cent","Forced_worse_rev","Forced_better_rev","Worse_Liv","Jt_Worse_Liv_bio","Jt_Worse_Liv_Pbreak","Jt_Worse_Liv_Preal","Jt_Worse_Liv_Pbenef"
+"S001",5,67,"Girl","Hispanic/Latinx","150000","2","Bachelor's Degree",3,4,0,0,3.5,"First","Circle","Restore_first","1","1","1",6,6,2,1,NA,0,1,NA,0,NA,NA,NA
+"S002",5,62,"Boy","White/Caucasian",NA,NA,NA,2,4,0,0,-1.5,"Second","Circle","Restore_first","1","1","0",6,5,1,1,NA,1,1,NA,0,NA,NA,NA
+"S003",6,75,NA,NA,NA,NA,NA,3,4,0.5,1,11.5,"First","Circle","Harm_first","1","1","1",6,5,1,1,NA,1,1,NA,0,NA,NA,NA
+"S004",3,42,"Boy","White/Caucasian,American Indian/Alaskan Native",NA,"2","Bachelor's Degree",1,4,1,0,-21.5,"Second","Circle","Harm_first","0","0","1",6,4,1,2,NA,0,1,NA,0,NA,NA,NA
+"S005",6,74,"Girl","Asian",NA,NA,"Bachelor's Degree",3,4,0.5,0,10.5,"First","Square","Restore_first","0","1","1",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S007",5,70,"Boy","White/Caucasian","130000","2","Bachelor's Degree",3,4,0,0,6.5,"First","Square","Harm_first","0","0","0",4,5,1,6,NA,0,1,NA,0,NA,NA,NA
+"S008",5,60,"Girl","White/Caucasian","72000","2","Bachelor's Degree",3,4,0,0,-3.5,"Second","Square","Harm_first","0","0","0",6,6,1,1,NA,0,0,NA,0,NA,NA,NA
+"S009",4,55,"Girl","White/Caucasian","210000","2","Bachelor's Degree",3,4,0.5,1,-8.5,"First","Circle","Restore_first","0","1","1",6,6,3,1,NA,1,1,NA,0,NA,NA,NA
+"S010",5,61,"Girl","White/Caucasian","140000","2","Master's Degree",3,4,0,0,-2.5,"Second","Circle","Restore_first","1","1","1",6,4,1,3,NA,1,1,NA,0,NA,NA,NA
+"S011",5,64,"Boy","White/Caucasian","150000","2","Master's Degree",1,4,0.5,0,0.5,"First","Circle","Harm_first","0","1","1",5,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S012",6,79,"Boy","Asian","57000","2","Bachelor's Degree",3,4,0,0,15.5,"Second","Circle","Harm_first","1","1","1",6,5,1,2,NA,1,1,NA,0,NA,NA,NA
+"S013",5,63,"Girl","Asian",NA,"2","Master's Degree",3,4,0.5,1,-0.5,"First","Square","Restore_first","1","1","1",6,5,1,2,NA,1,1,NA,0,NA,NA,NA
+"S015",5,62,"Boy","White/Caucasian","$200,000","2","Master's Degree",3,4,0.5,1,-1.5,"First","Square","Harm_first","1","0","0",4,4,2,1,NA,0,1,NA,0,NA,NA,NA
+"S016",6,77,"Boy","American Indian/Alaskan Native",NA,NA,"Master's Degree",3,4,0.5,0,13.5,"Second","Square","Harm_first","0","1","1",6,4,3,2,NA,0,1,NA,0,NA,NA,NA
+"S017",4,59,"Boy","White/Caucasian",NA,"2","Bachelor's Degree",1,4,0.5,1,-4.5,"First","Circle","Restore_first","1","0","0",6,6,1,1,NA,0,1,NA,0,NA,NA,NA
+"S018",3,46,"Girl","Asian,White/Caucasian","150000","2","Doctorate (PhD/MD/JD)",3,4,0.5,1,-17.5,"Second","Circle","Restore_first","0","1","1",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S019",3,42,"Boy","White/Caucasian","$200,000","2","Master's Degree",3,4,0,-2,-21.5,"First","Circle","Harm_first","0","1","1",6,6,1,1,NA,0,1,NA,0,NA,NA,NA
+"S020",5,71,"Girl","Hispanic/Latinx","$150,000","2","Master's Degree",3,4,0,0,7.5,"Second","Circle","Harm_first","1","1","1",5,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S021",4,57,"Girl","White/Caucasian,Hispanic/Latinx","180000","2","Doctorate (PhD/MD/JD)",2,4,0.5,0,-6.5,"First","Square","Restore_first","1","0","1",6,1,6,3,NA,1,0,NA,0,NA,NA,NA
+"S022",5,66,"Girl","Asian","300,000","2","Bachelor's Degree",3,4,0,0,2.5,"Second","Square","Restore_first","0","0","0",6,6,2,1,NA,0,0,NA,0,NA,NA,NA
+"S023",4,50,"Boy","Asian,White/Caucasian",NA,NA,"Doctorate (PhD/MD/JD)",3,4,0,0,-13.5,"First","Square","Harm_first","1","1","1",4,4,1,1,NA,1,1,NA,0,NA,NA,NA
+"S024",6,75,"Girl","Asian,White/Caucasian",NA,"2","Doctorate (PhD/MD/JD)",3,4,0.5,1,11.5,"Second","Square","Harm_first","1","0","1",3,4,2,2,NA,0,1,NA,0,NA,NA,NA
+"S025",5,63,"Boy","White/Caucasian","175000","2","Bachelor's Degree",2,4,1,0,-0.5,"First","Circle","Restore_first","1","1","1",6,6,1,4,NA,1,1,NA,0,NA,NA,NA
+"S028",5,60,"Girl","White/Caucasian",NA,"2","Master's Degree",3,4,0,0,-3.5,"Second","Circle","Harm_first","1","0","0",5,4,1,1,NA,1,1,NA,0,NA,NA,NA
+"S029",4,54,"Girl","Asian",NA,"2","Master's Degree",2,4,0.5,0,-9.5,"First","Square","Restore_first","1","0","0",6,6,1,1,NA,0,1,NA,0,NA,NA,NA
+"S030",5,71,"Boy","White/Caucasian","over $500k, 2 sources","2","Doctorate (PhD/MD/JD)",3,4,0,0,7.5,"Second","Square","Restore_first","0","0","1",4,6,1,2,NA,0,0,NA,0,NA,NA,NA
+"S031",3,47,"Boy","White/Caucasian","550,000","2","Doctorate (PhD/MD/JD)",1,4,0.5,0,-16.5,"First","Square","Harm_first","1","1","1",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S033",4,54,"Girl","Asian,White/Caucasian,Multiracial",NA,"2","Doctorate (PhD/MD/JD)",2,4,0.5,0,-9.5,"First","Circle","Restore_first","1","1","1",6,5,1,3,NA,1,1,NA,0,NA,NA,NA
+"S034",6,74,"Girl","Middle Eastern/Northern African","120000","2","Bachelor's Degree",3,4,0.5,1,10.5,"Second","Circle","Restore_first","1","1","1",5,5,1,1,NA,1,1,NA,0,NA,NA,NA
+"S035",5,70,"Boy","Asian",NA,"2","Bachelor's Degree",3,4,0,0,6.5,"First","Circle","Harm_first","1","1","0",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S036",5,64,"Boy","Asian",NA,NA,"Master's Degree",3,4,0,0,0.5,"Second","Circle","Harm_first","1","1","1",4,4,2,2,NA,1,1,NA,0,NA,NA,NA
+"S037",5,68,"Girl","Asian","600000","2","Bachelor's Degree",3,4,0.5,1,4.5,"First","Square","Restore_first","0","0","1",6,3,2,4,NA,1,1,NA,0,NA,NA,NA
+"S038",5,66,"Girl","Asian","75,000","2","Master's Degree",3,4,0,0,2.5,"Second","Square","Restore_first","0","0","0",4,5,1,1,NA,1,1,NA,0,NA,NA,NA
+"S040",5,62,"Girl","White/Caucasian",NA,"2","Bachelor's Degree",3,4,0,0,-1.5,"Second","Square","Harm_first","1","1","1",5,2,1,3,NA,1,1,NA,0,NA,NA,NA
+"S041",4,54,"Girl","White/Caucasian","200000","2","Master's Degree",2,4,0.5,0,-9.5,"First","Circle","Restore_first","1","1","0",4,4,1,1,NA,1,1,NA,0,NA,NA,NA
+"S043",4,52,"Boy","Black/African American","120,000","2","Bachelor's Degree",2,4,0,0,-11.5,"First","Circle","Harm_first","0","0","1",6,6,1,3,NA,1,0,NA,0,NA,NA,NA
+"S044",5,69,"Boy","White/Caucasian",NA,"2","Bachelor's Degree",3,4,1,0,5.5,"Second","Circle","Harm_first","1","1","1",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S045",3,45,"Boy","White/Caucasian","100,000 plus","2","Doctorate (PhD/MD/JD)",1,3,1,1,-18.5,"First","Square","Restore_first","1","1","1",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S046",6,79,"Boy","Asian",NA,NA,NA,3,4,0,0,15.5,"Second","Square","Restore_first","1","1","1",5,4,1,2,NA,1,1,NA,0,NA,NA,NA
+"S047",5,68,"Girl","White/Caucasian,American Indian/Alaskan Native","80,000","2","Bachelor's Degree",3,4,0,-1,4.5,"First","Square","Harm_first","0","0","0",2,6,1,1,NA,0,0,NA,0,NA,NA,NA
+"S048",6,81,"Boy","White/Caucasian","200000","2","Master's Degree",3,4,0,0,17.5,"Second","Square","Harm_first","1","1","1",6,1,1,3,NA,0,1,NA,0,NA,NA,NA
+"S053",5,63,"Girl","Asian,White/Caucasian",NA,"2","Master's Degree",3,4,0,0,-0.5,"First","Square","Restore_first","0","0","1",6,6,1,1,NA,1,1,NA,0,NA,NA,NA
+"S054",3,46,"Girl","White/Caucasian","500,000","2","Bachelor's Degree",-1,4,1,0,-17.5,"Second","Square","Restore_first","0","1","1",1,1,6,6,NA,1,0,NA,0,NA,NA,NA
+"S055",5,69,"Girl","Hispanic/Latinx","80000","2","Associate's Degree",1,4,0.5,0,5.5,"First","Square","Harm_first","1","0","0",6,4,1,2,NA,1,0,NA,0,NA,NA,NA
+"S056",4,58,"Boy","Asian,White/Caucasian",NA,"2","Doctorate (PhD/MD/JD)",3,4,0.5,1,-5.5,"Second","Square","Harm_first","1","1","1",6,1,1,6,NA,1,1,NA,0,NA,NA,NA
+"S057",5,67,"Boy","White/Caucasian","95000","2","Master's Degree",3,4,0.5,1,3.5,"First","Circle","Restore_first","1","1","1",6,6,1,1,NA,0,1,NA,0,NA,NA,NA
+"S058",6,77,"Girl","Hispanic/Latinx","130000","2","Bachelor's Degree",3,4,0.5,0,13.5,"Second","Circle","Restore_first","0","1","1",6,3,1,2,NA,1,1,1,1,0,0,0
+"S059",5,68,"Girl","Asian","100000","2","Master's Degree",3,4,0,0,4.5,"First","Circle","Harm_first","1","1","1",3,2,1,2,NA,1,1,1,1,0,0,0
+"S060",5,62,"Boy","Asian","140000","2","Master's Degree",3,4,0,0,-1.5,"Second","Circle","Harm_first","1","1","0",6,6,1,1,NA,1,1,1,1,0,0,0
+"S061",5,68,"Girl","White/Caucasian","500,000","2","Doctorate (PhD/MD/JD)",3,4,1,0,4.5,"First","Square","Restore_first","1","0","1",6,6,1,1,NA,1,1,1,0,1,0,0
+"S062",4,56,"Boy","White/Caucasian","150000","2","Master's Degree",3,4,0,0,-7.5,"Second","Square","Restore_first","0","0","1",6,6,1,2,NA,1,1,0,0,0,0,0
+"S063",6,72,"Boy","White/Caucasian","100,000","2","Master's Degree",3,4,0.5,1,8.5,"First","Square","Harm_first","0","1","1",5,1,1,3,NA,1,1,1,0,0,1,0
+"S064",5,61,"Boy","White/Caucasian",NA,"2","Master's Degree",1,4,0,0,-2.5,"Second","Square","Harm_first","0","0","1",4,4,3,1,NA,0,1,1,0,0,0,0
+"S065",4,59,"Boy","White/Caucasian","$55,000","2","Bachelor's Degree",3,4,0.5,-1,-4.5,"First","Circle","Restore_first",NA,"0","1",6,6,1,1,NA,1,1,1,1,0,0,0
+"S066",6,76,"Girl","White/Caucasian",NA,NA,"Bachelor's Degree",3,4,0,0,12.5,"Second","Circle","Restore_first","1","1","1",5,5,2,2,NA,1,1,1,1,0,0,0
+"S067",5,62,"Girl","White/Caucasian","200000","2","Bachelor's Degree",3,4,0,0,-1.5,"First","Circle","Harm_first","1","1","1",4,4,1,1,NA,0,1,1,0,0,0,0
+"S068",6,72,"Boy","Hispanic/Latinx,White/Caucasian","100000","2","Bachelor's Degree",2,4,0.5,1,8.5,"Second","Circle","Harm_first","1","1","1",4,1,1,3,NA,1,1,1,0,0,0,0
+"S069",6,75,"Girl","Asian","25000","2","Master's Degree",3,4,0,0,11.5,"First","Square","Restore_first","1","1","1",6,6,1,1,NA,1,1,1,1,1,0,0
+"S070",5,66,"Girl","Multiracial","450000","2","Master's Degree",3,4,0,0,2.5,"Second","Square","Restore_first","0","0","1",6,5,1,4,NA,1,1,1,0,0,0,0
+"S071",4,51,"Girl","White/Caucasian","165000","2","Master's Degree",2,4,0,0,-12.5,"First","Square","Harm_first","0","0","0",4,4,1,1,-5.75806451612902,0,1,0,0,0,0,0
+"S072",5,70,"Girl","White/Caucasian","150,000","2","Master's Degree",3,4,0,0,6.5,"Second","Square","Harm_first","0","1","1",5,5,2,2,7.24193548387098,1,1,1,1,0,1,0
+"S073",6,76,"Girl","Asian,White/Caucasian",NA,"2","Master's Degree",3,4,0.5,1,12.5,"First","Circle","Restore_first","0","1","1",5,5,2,2,-1.75806451612902,0,1,1,0,0,0,0
+"S074",5,64,"Boy","Multiracial,Black/African American","$280,000","2","Master's Degree",3,4,0,0,0.5,"Second","Square","Harm_first","1","1","0",5,4,1,1,1.24193548387098,1,1,1,1,0,0,0
+"S075",5,69,"Boy","White/Caucasian","100,000","2","Doctorate (PhD/MD/JD)",3,4,0,0,5.5,"First","Circle","Harm_first","1","1","1",6,4,1,2,5.24193548387098,1,1,1,1,0,1,0
+"S076",6,75,"Girl","Asian",NA,"2","Doctorate (PhD/MD/JD)",3,4,0,0,11.5,"Second","Circle","Harm_first","1","1","1",5,3,1,2,9.24193548387098,1,1,1,0,0,0,1
+"S077",6,74,"Girl","White/Caucasian","60000","2","Associate's Degree",3,4,0,0,10.5,"First","Square","Restore_first","0","0","1",6,5,1,2,12.241935483871,1,1,1,0,0,1,0
+"S078",4,50,"Boy","White/Caucasian","50000","2","Associate's Degree",3,4,0.5,1,-13.5,"Second","Square","Restore_first","1","1","1",6,1,5,1,-8.75806451612902,1,1,0,0,0,0,0
+"S079",6,72,"Girl","Asian","$130,000","2","Bachelor's Degree",3,4,0,0,8.5,"First","Square","Harm_first","0","0","1",5,2,1,3,17.241935483871,1,1,1,0,0,0,1
+"S080",6,72,"Girl","Asian","199,999","2","Master's Degree",3,4,0,0,8.5,"Second","Square","Harm_first","0","0","1",6,6,1,1,8.24193548387098,1,0,0,0,0,0,0
+"S081",6,77,"Girl","White/Caucasian",NA,"2","Bachelor's Degree",3,4,0,0,13.5,"First","Circle","Restore_first","1","1","1",6,4,1,5,-2.75806451612902,1,1,1,1,0,0,0
+"S082",4,50,"Girl","Asian,White/Caucasian,Multiracial","400000","2","Doctorate (PhD/MD/JD)",3,4,0.5,1,-13.5,"Second","Circle","Restore_first","1","0","1",6,6,1,1,-8.75806451612902,0,1,1,0,0,0,0
+"S083",5,62,"Girl","Asian",NA,"2","Master's Degree",1,4,0,0,-1.5,"First","Circle","Harm_first","1","0","1",6,1,1,6,-13.758064516129,1,1,1,1,0,0,0
+"S084",5,64,"Boy","White/Caucasian","250000","2","Master's Degree",3,4,0.5,1,0.5,"Second","Circle","Harm_first","1","1","0",4,4,1,1,-6.75806451612902,1,1,1,0,0,0,0
+"S085",6,75,"Boy","White/Caucasian","300,000","2","Master's Degree",2,4,1,0,11.5,"First","Square","Restore_first","1","0","0",6,6,1,1,-7.75806451612902,1,1,1,0,0,0,0
+"S086",6,75,"Boy","Black/African American,White/Caucasian","140000","2","Bachelor's Degree",3,4,0.5,-1,11.5,"Second","Square","Restore_first","0","0","0",6,6,1,1,7.24193548387098,1,1,1,0,1,0,0
+"S087",6,75,"Boy","Hispanic/Latinx,White/Caucasian","65,000","2","Bachelor's Degree",3,4,0,-1,11.5,"First","Square","Harm_first","0","0","0",6,5,1,2,9.24193548387098,1,1,1,1,0,0,0
+"S088",6,76,"Girl","White/Caucasian",">200k","2","Bachelor's Degree",3,4,0.5,1,12.5,"Second","Square","Harm_first","0","1","1",5,5,2,2,14.241935483871,1,1,1,1,0,1,0
+"S089",6,73,"Girl","Asian",NA,"2","Doctorate (PhD/MD/JD)",3,4,0,0,9.5,"First","Circle","Restore_first","1","1","1",5,5,2,2,22.241935483871,1,1,1,1,0,0,0
+"S090",5,69,"Girl","White/Caucasian",NA,NA,"Bachelor's Degree",3,4,0,0,5.5,"Second","Circle","Restore_first","1","1","1",6,3,1,6,-0.758064516129025,1,1,1,1,0,0,0
+"S091",5,64,"Girl","White/Caucasian","60,000","2","Master's Degree",3,4,0,0,0.5,"First","Circle","Harm_first","1","1","1",6,3,1,1,9.24193548387098,0,1,0,0,0,0,0
+"S092",6,76,"Boy","Asian","10,000,000","2","Doctorate (PhD/MD/JD)",3,4,0,0,12.5,"Second","Circle","Harm_first","1","1","1",6,4,1,1,1.24193548387098,1,0,1,1,0,0,1
+"S093",4,51,"Boy","White/Caucasian","205000","2","Doctorate (PhD/MD/JD)",2,4,1,1,-12.5,"First","Square","Restore_first","1","1","1",6,6,1,1,-11.758064516129,1,1,1,0,0,0,0
+"S094",6,77,"Boy","White/Caucasian","205000","2","Doctorate (PhD/MD/JD)",3,4,1,2,13.5,"Second","Square","Restore_first","1","1","1",5,5,2,2,-2.75806451612902,1,1,1,0,1,0,0
+"S095",5,62,"Boy","White/Caucasian","350,000","2","Doctorate (PhD/MD/JD)",3,4,0,0,-1.5,"First","Square","Harm_first","0","0","0",5,1,3,1,-0.758064516129025,1,0,1,0,0,0,0
+"S097",5,60,"Girl","White/Caucasian","220,000","2","Doctorate (PhD/MD/JD)",3,4,0.5,1,-3.5,"First","Circle","Restore_first","0","0","1",6,6,1,1,0.241935483870975,1,1,1,1,0,1,0
+"S098",6,72,"Boy","White/Caucasian","600,000","2","Doctorate (PhD/MD/JD)",3,4,0,0,8.5,"Second","Circle","Restore_first","1","1","1",5,5,1,2,7.24193548387098,1,1,1,0,0,0,0
+"S099",4,49,"Boy","Hispanic/Latinx,Asian",NA,"2","Doctorate (PhD/MD/JD)",3,4,1,0,-14.5,"First","Circle","Harm_first","0","1","1",6,6,1,1,-11.758064516129,0,0,0,0,0,0,0
+"S100",5,64,"Boy","White/Caucasian",NA,"2","Master's Degree",3,4,0.5,0,0.5,"Second","Circle","Harm_first","0","1","0",4,5,1,1,-2.75806451612902,1,1,1,1,0,1,0
+"S101",6,75,"Girl","Middle Eastern/Northern African,White/Caucasian,Native Hawaiian/Pacific Islander","$105,000","2","Master's Degree",3,4,0,0,11.5,"First","Square","Restore_first","0","0","0",5,5,1,1,8.24193548387098,1,1,1,1,0,0,0
+"S103",4,52,"Girl","White/Caucasian",NA,"1","Bachelor's Degree",0,0,NA,0,-11.5,"First","Square","Harm_first","0","0",NA,NA,NA,NA,NA,NA,NA,NA,NA,0,0,0,0
+"S105",3,42,"Girl","Multiracial","170000","2","Doctorate (PhD/MD/JD)",2,4,0.5,1,-21.5,"First","Circle","Restore_first","1","1","1",5,5,1,3,-15.758064516129,0,1,0,0,0,0,0
+"S106",6,74,"Boy","White/Caucasian","200,000","2","Master's Degree",3,4,0,0,10.5,"Second","Circle","Restore_first","1","1","1",6,4,1,3,8.24193548387098,1,1,1,0,1,0,0
+"S107",5,64,"Boy","White/Caucasian","350000","2","Master's Degree",3,4,0.5,0,0.5,"First","Circle","Harm_first","1","1","1",6,4,1,1,-3.75806451612902,1,1,1,1,0,0,0
+"S109",3,43,"Boy","White/Caucasian",NA,"1","Master's Degree",3,4,0.5,0,-20.5,"First","Square","Restore_first","1","0","1",6,6,1,1,3.24193548387098,1,1,1,1,0,0,0
+"S111",5,62,"Boy","White/Caucasian","135000","2","Bachelor's Degree",2,4,0,0,-1.5,"First","Square","Harm_first","1","0","1",6,3,1,6,-7.75806451612902,1,0,0,0,0,0,0
+"S112",4,53,"Boy","White/Caucasian","200,000","3","Master's Degree",3,4,0,0,-10.5,"Second","Square","Harm_first","1","0","1",4,4,1,1,5.24193548387098,1,1,1,0,0,0,0
+"S113",6,75,"Girl","White/Caucasian","200000","2","Master's Degree",3,4,0.5,1,11.5,"First","Circle","Restore_first","1","1","1",6,6,1,1,-4.75806451612902,1,1,1,0,0,0,1
+"S114",4,58,"Girl","White/Caucasian","40000","2","Associate's Degree",2,4,0.5,1,-5.5,"Second","Circle","Restore_first","1","1","1",6,4,1,1,-0.758064516129025,1,1,1,1,0,0,0
+"S115",3,44,"Boy","Asian,White/Caucasian","350000","2","Doctorate (PhD/MD/JD)",2,4,0,-1,-19.5,"First","Circle","Harm_first","1","1","1",6,6,1,1,-12.758064516129,NA,1,NA,0,0,0,0
+"S116",5,68,"Boy","White/Caucasian",NA,NA,NA,3,4,0,0,4.5,"Second","Circle","Harm_first","0","0","0",6,6,1,1,20.241935483871,1,1,1,1,0,0,0
+"S117",3,44,"Girl","Asian","60000","2","Bachelor's Degree",3,4,0,-2,-19.5,"First","Square","Restore_first","0","0","1",4,4,1,1,-22.758064516129,1,1,0,0,0,0,0
+"S119",5,64,"Boy","White/Caucasian","200000","2","Doctorate (PhD/MD/JD)",3,4,0.5,0,0.5,"First","Square","Harm_first","1","1","1",6,6,1,1,-6.75806451612902,1,1,0,0,0,0,0
+"S120",3,42,"Girl","White/Caucasian","850,000","2","Doctorate (PhD/MD/JD)",1,4,0,0,-21.5,"Second","Square","Harm_first","0","0","0",4,4,2,1,-0.758064516129025,1,0,0,0,0,0,0
+"S121",4,59,"Girl","White/Caucasian","96000","2","Master's Degree",1,4,0.5,1,-4.5,"First","Circle","Restore_first","1","1","1",6,6,1,1,-8.75806451612902,1,0,1,1,0,0,0
+"S122",4,56,"Boy","White/Caucasian",NA,"2","Master's Degree",0,0,NA,0,-7.5,"Second","Circle","Restore_first","0","1","0",6,6,1,1,NA,NA,NA,NA,0,0,0,0
+"S123",4,59,"Girl","Multiracial","$250,000","2","Master's Degree",3,4,0,0,-4.5,"First","Circle","Harm_first","0","1","1",6,3,1,2,3.24193548387098,1,1,1,0,0,0,0
+"S125",4,51,"Girl","Multiracial",NA,"2","Bachelor's Degree",3,4,0.5,1,-12.5,"First","Square","Restore_first","1","0","1",6,6,1,1,-4.75806451612902,1,1,1,0,0,1,0
+"S126",4,51,NA,"Hispanic/Latinx,White/Caucasian",NA,"2","Bachelor's Degree",3,4,0,0,-12.5,"Second","Square","Restore_first","0","0","0",3,6,3,1,NA,0,0,1,1,0,0,0
+"S127",4,52,"NA","NA","NA","NA","NA",0,0,NA,0,-11.5,"First","Square","Harm_first","0","0",NA,NA,NA,NA,NA,NA,NA,NA,NA,0,0,0,0
+"S130",5,66,"Girl","Black/African American,Hispanic/Latinx","150,000","2","Master's Degree",2,4,0,0,2.5,"Second","Circle","Restore_first","1","1","0",6,3,2,1,-20.758064516129,1,1,0,0,0,0,0
+"S131",5,69,"Girl","White/Caucasian","140,000","2","Bachelor's Degree",3,4,0,0,5.5,"First","Circle","Harm_first","0","0","0",2,5,1,2,-5.75806451612902,0,0,1,0,1,0,0
+"S132",5,67,"Boy","Hispanic/Latinx","$250,000","2","Bachelor's Degree",3,4,0.5,1,3.5,"Second","Circle","Harm_first","1","1","1",6,4,1,1,14.241935483871,0,1,1,0,1,0,0
+"S133",5,65,"Boy","White/Caucasian","140,000","2","Bachelor's Degree",1,3,1,1,1.5,"First","Square","Restore_first","0","1","0",6,4,1,1,-13.758064516129,1,1,1,0,0,0,0
+"S134",5,62,"Girl","White/Caucasian","350000","2","Doctorate (PhD/MD/JD)",3,4,0,0,-1.5,"Second","Square","Restore_first","0","0","1",6,5,1,5,-6.75806451612902,1,1,0,0,0,0,0
+"S136",3,44,"Boy","Hispanic/Latinx,White/Caucasian","206,000","2","Bachelor's Degree",2,4,1,2,-19.5,"Second","Square","Harm_first","1","0","1",6,6,3,1,-5.75806451612902,1,0,0,0,0,0,0
+"S137",3,45,"Girl","Hispanic/Latinx,White/Caucasian","74,000","2","High School",3,4,0,0,-18.5,"First","Circle","Restore_first","1","1","1",6,6,1,1,NA,0,1,1,0,0,0,0
+"S138",5,68,NA,NA,NA,NA,NA,2,4,0,0,4.5,"Second","Circle","Restore_first","0","0","1",6,6,1,1,-4.75806451612902,1,1,1,1,0,0,0
+"S139",6,77,"Girl","White/Caucasian",NA,"2","Doctorate (PhD/MD/JD)",3,4,0,-1,13.5,"First","Circle","Harm_first","1","1","1",6,3,1,3,10.241935483871,1,1,1,0,0,0,0
+"S140",5,69,"NA","NA","NA","NA","NA",3,4,0,0,5.5,"Second","Circle","Harm_first","0","0","0",2,5,2,1,-2.75806451612902,0,0,0,0,0,0,0
+"S141",6,73,"Girl","Multiracial","na","2","Master's Degree",2,4,0,0,9.5,"First","Square","Restore_first","1","1","0",6,6,1,1,3.24193548387098,0,0,0,0,0,0,0
+"S142",6,72,"Girl","Asian,White/Caucasian","0","2","Bachelor's Degree",3,4,0,0,8.5,"Second","Square","Restore_first","0","0","0",6,6,2,2,7.24193548387098,0,0,1,1,0,0,0
+"S143",6,74,"Girl","White/Caucasian","200,000","2","Master's Degree",3,4,0,0,10.5,"First","Square","Harm_first","0","1","1",2,2,1,1,16.241935483871,0,1,1,1,0,0,0
+"S144",5,67,"Girl","White/Caucasian",NA,"2","Bachelor's Degree",3,4,0,0,3.5,"Second","Square","Harm_first","0","0","0",4,6,1,1,5.24193548387098,1,1,1,0,1,0,0
+"S145",6,73,"NA","NA","NA","NA","NA",3,4,0.5,1,9.5,"First","Circle","Restore_first","1","1","1",6,4,1,2,15.241935483871,1,1,1,0,0,0,0
+"S146",4,59,"Boy","Hispanic/Latinx,Multiracial,White/Caucasian,Asian","250,000","2","Doctorate (PhD/MD/JD)",3,4,0.5,0,-4.5,"Second","Circle","Restore_first","1","1","0",6,6,1,1,-13.758064516129,1,0,0,0,0,0,0
+"S148",5,64,"Girl","Asian","85000","2","Bachelor's Degree",2,4,0.5,1,0.5,"Second","Circle","Harm_first","1","0","1",6,6,1,1,-1.75806451612902,1,1,0,0,0,0,0
